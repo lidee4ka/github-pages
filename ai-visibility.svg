@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="780" viewBox="0 0 1200 780" role="img" aria-labelledby="title desc">
+  <title id="title">BEANABOX · видимость в нейросетях · 02.10.2026</title>
+  <desc id="desc">Общая видимость 4,03%, SoV 1,04%, vs СФТ +2,42 п.п., тональность 30/20/50, сильные репутационные промпты 14,58%</desc>
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&amp;display=swap');
+      .sans { font-family: Manrope, 'Segoe UI', system-ui, sans-serif; }
+    </style>
+  </defs>
+  <rect width="1200" height="780" fill="#f9f9f9"/>
+  <rect x="40" y="40" width="1120" height="700" rx="22" fill="#ffffff" stroke="#e8eef2"/>
+  <text class="sans" x="72" y="92" font-size="14" font-weight="700" fill="#3f86b8" letter-spacing="2">BEANABOX · GEO</text>
+  <text class="sans" x="1128" y="92" font-size="16" font-weight="500" fill="#6b7280" text-anchor="end">Съём 02.10.2026</text>
+  <text class="sans" x="72" y="138" font-size="34" font-weight="800" fill="#1a1c1f">Видимость в нейросетях</text>
+
+  <!-- KPI cards -->
+  <rect x="72" y="168" width="248" height="132" rx="14" fill="#e8f1f8"/>
+  <text class="sans" x="92" y="200" font-size="14" fill="#6b7280">Общая видимость</text>
+  <rect x="92" y="218" width="132" height="48" rx="10" fill="#DDFD2C"/>
+  <text class="sans" x="158" y="252" font-size="36" font-weight="800" fill="#1a1c1f" text-anchor="middle">4,03%</text>
+  <text class="sans" x="92" y="284" font-size="13" fill="#6b7280">10 упоминаний</text>
+
+  <rect x="340" y="168" width="248" height="132" rx="14" fill="#f7fafc"/>
+  <text class="sans" x="360" y="200" font-size="14" fill="#6b7280">Share of Voice</text>
+  <text class="sans" x="360" y="252" font-size="36" font-weight="800" fill="#1a1c1f">1,04%</text>
+  <text class="sans" x="360" y="284" font-size="13" fill="#6b7280">среди брендов в ответах ИИ</text>
+
+  <rect x="608" y="168" width="248" height="132" rx="14" fill="#e8f1f8"/>
+  <text class="sans" x="628" y="200" font-size="14" fill="#6b7280">vs СФТ Трейдинг</text>
+  <text class="sans" x="628" y="252" font-size="36" font-weight="800" fill="#1a1c1f">+2,42 п.п.</text>
+  <text class="sans" x="628" y="284" font-size="13" fill="#6b7280">4,03% против 1,61%</text>
+
+  <rect x="876" y="168" width="248" height="132" rx="14" fill="#fff4e8"/>
+  <text class="sans" x="896" y="200" font-size="14" fill="#6b7280">Тональность</text>
+  <text class="sans" x="896" y="252" font-size="32" font-weight="800" fill="#1a1c1f">30% / 50%</text>
+  <text class="sans" x="896" y="284" font-size="13" fill="#6b7280">позитив / негатив</text>
+
+  <!-- SoV -->
+  <text class="sans" x="72" y="350" font-size="18" font-weight="700" fill="#1a1c1f">Share of Voice · топ</text>
+  <!-- bars max 4.70 = 420px -->
+  <g class="sans" font-size="14" fill="#1a1c1f">
+    <text x="72" y="390" font-weight="600">OZON.ru</text>
+    <rect x="280" y="376" width="420" height="12" rx="6" fill="#e8eef2"/>
+    <rect x="280" y="376" width="420" height="12" rx="6" fill="#5b9fd0"/>
+    <text x="716" y="390" font-weight="700" text-anchor="end">4,70%</text>
+
+    <text x="72" y="430" font-weight="600">KLD Coffee</text>
+    <rect x="280" y="416" width="420" height="12" rx="6" fill="#e8eef2"/>
+    <rect x="280" y="416" width="159" height="12" rx="6" fill="#5b9fd0"/>
+    <text x="716" y="430" font-weight="700" text-anchor="end">1,78%</text>
+
+    <text x="72" y="470" font-weight="600">Camera Obscura</text>
+    <rect x="280" y="456" width="420" height="12" rx="6" fill="#e8eef2"/>
+    <rect x="280" y="456" width="149" height="12" rx="6" fill="#5b9fd0"/>
+    <text x="716" y="470" font-weight="700" text-anchor="end">1,67%</text>
+
+    <text x="72" y="510" font-weight="600">Sibaristica</text>
+    <rect x="280" y="496" width="420" height="12" rx="6" fill="#e8eef2"/>
+    <rect x="280" y="496" width="112" height="12" rx="6" fill="#5b9fd0"/>
+    <text x="716" y="510" font-weight="700" text-anchor="end">1,25%</text>
+
+    <text x="72" y="550" font-weight="800">BEANABOX</text>
+    <rect x="280" y="536" width="420" height="12" rx="6" fill="#e8eef2"/>
+    <rect x="280" y="536" width="93" height="12" rx="6" fill="#DDFD2C"/>
+    <text x="716" y="550" font-weight="800" text-anchor="end">1,04%</text>
+  </g>
+
+  <!-- Prompts -->
+  <text class="sans" x="780" y="350" font-size="18" font-weight="700" fill="#1a1c1f">Группы промптов</text>
+  <rect x="780" y="372" width="344" height="52" rx="12" fill="#f3f7e8"/>
+  <text class="sans" x="800" y="404" font-size="15" font-weight="700" fill="#1a1c1f">Сильная: репутационные</text>
+  <text class="sans" x="1100" y="404" font-size="16" font-weight="800" fill="#1a1c1f" text-anchor="end">14,58%</text>
+
+  <rect x="780" y="436" width="344" height="44" rx="12" fill="#f7fafc"/>
+  <text class="sans" x="800" y="464" font-size="15" fill="#1a1c1f">Сравнительные / поисковые</text>
+  <text class="sans" x="1100" y="464" font-size="15" font-weight="700" fill="#1a1c1f" text-anchor="end">2,5%</text>
+
+  <rect x="780" y="492" width="344" height="52" rx="12" fill="#fee2e2"/>
+  <text class="sans" x="800" y="524" font-size="15" font-weight="700" fill="#1a1c1f">Слабые: ситуативные, рек.</text>
+  <text class="sans" x="1100" y="524" font-size="16" font-weight="800" fill="#b91c1c" text-anchor="end">0%</text>
+
+  <!-- Tone bar -->
+  <text class="sans" x="72" y="610" font-size="16" font-weight="700" fill="#1a1c1f">Тональность ответов</text>
+  <rect x="72" y="628" width="1052" height="16" rx="8" fill="#e8eef2"/>
+  <rect x="72" y="628" width="316" height="16" rx="8" fill="#2f8f4e"/>
+  <rect x="388" y="628" width="210" height="16" fill="#9aa3ad"/>
+  <rect x="598" y="628" width="526" height="16" rx="8" fill="#b91c1c"/>
+  <text class="sans" x="72" y="678" font-size="14" fill="#6b7280"><tspan font-weight="700" fill="#1a1c1f">30%</tspan> позитив · <tspan font-weight="700" fill="#1a1c1f">20%</tspan> нейтраль · <tspan font-weight="700" fill="#1a1c1f">50%</tspan> негатив</text>
+  <text class="sans" x="72" y="710" font-size="13" fill="#6b7280">Пиксель Тулс AI SEO #13494 · 31 промпт · не органика Метрики</text>
+</svg>

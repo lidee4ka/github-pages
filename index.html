@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BEANABOX: продукт и динамика · апрель — сентябрь 2026</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+  <style>
+    @font-face { font-family: Gilroy; src: url("fonts/Gilroy-Regular.woff") format("woff"); font-weight: 400; font-style: normal; font-display: swap; }
+    @font-face { font-family: Gilroy; src: url("fonts/Gilroy-Medium.woff") format("woff"); font-weight: 500; font-style: normal; font-display: swap; }
+    @font-face { font-family: Gilroy; src: url("fonts/Gilroy-Semibold.woff") format("woff"); font-weight: 600; font-style: normal; font-display: swap; }
+    @font-face { font-family: Gilroy; src: url("fonts/Gilroy-Bold.ttf") format("truetype"); font-weight: 700; font-style: normal; font-display: swap; }
+    @font-face { font-family: Gilroy; src: url("fonts/Gilroy-ExtraBold.woff") format("woff"); font-weight: 800; font-style: normal; font-display: swap; }
+    :root {
+      --bg: #f9f9f9; --surface: #fff; --ink: #1a1c1f; --muted: #6b7280;
+      --line: #e8eef2; --accent: #5b9fd0; --accent-2: #3f86b8; --accent-soft: #e8f1f8;
+      --lime: #DDFD2C; --lime-soft: #f3f7e8; --peach: #bad8f3;
+      --ok: #2f8f4e; --ok-soft: #e8f6ee; --bad: #b91c1c; --bad-soft: #fee2e2;
+      --warm: #b45309; --warm-soft: #fff4e8;
+      --shadow: 0 10px 28px #1a1c1f0c; --shadow-sm: 0 4px 14px #1a1c1f12;
+      --radius: 15px; --max: 980px;
+      --sans: Gilroy, "Segoe UI", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; font-family: var(--sans); color: var(--ink);
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(900px 520px at 12% 8%, #dfe9f2cc 0%, transparent 58%),
+        radial-gradient(820px 480px at 88% 18%, #eff2e1cc 0%, transparent 55%),
+        radial-gradient(760px 520px at 20% 42%, #ebf2d3c2 0%, transparent 58%),
+        radial-gradient(700px 460px at 82% 58%, #bad8f399 0%, transparent 55%),
+        linear-gradient(180deg, #f7f8fa 0%, #eef3f8 18%, #f9f9f9 42%, #f3f7e8 72%, #f7f8fa 100%);
+      line-height: 1.55; -webkit-font-smoothing: antialiased;
+      font-size: 18px;
+    }
+    .wrap { width: min(100% - 2rem, var(--max)); margin: 0 auto; padding: 2.25rem 0 4rem; }
+    header.hero {
+      padding: 1.75rem 1.5rem 2rem; margin: 0 0 1.75rem; border: 0;
+      border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow);
+      position: relative; overflow: hidden;
+    }
+    .brand-hero {
+      font-size: clamp(1.15rem, 2.4vw, 1.35rem); font-weight: 700; letter-spacing: .04em;
+      text-transform: uppercase; color: var(--accent); line-height: 1.2; margin: 0 0 .65rem;
+    }
+    .brand-hero span {
+      display: inline-block; padding: .28rem .7rem; border-radius: 999px;
+      background: var(--accent-soft); color: var(--accent-2); border-bottom: 0;
+    }
+    h1 {
+      font-family: var(--sans); font-weight: 700;
+      font-size: clamp(1.55rem, 3.4vw, 2.15rem); line-height: 1.15; margin: 0 0 .55rem;
+      letter-spacing: -.03em; color: var(--ink);
+    }
+    h2 {
+      font-family: var(--sans); font-weight: 700; font-size: 1.35rem;
+      margin: 2rem 0 .6rem; letter-spacing: -.02em; color: var(--ink);
+    }
+    .subtitle { font-size: 1.02rem; color: var(--muted); margin: 0 0 .85rem; max-width: 40rem; font-weight: 500; }
+    .lede { font-size: 1.02rem; color: var(--muted); max-width: 46rem; margin: 0 0 .9rem; }
+    .lede strong { color: var(--ink); font-weight: 700; }
+    .compare-line {
+      display: inline-flex; flex-wrap: wrap; gap: .45rem .65rem; align-items: center;
+      font-size: 14px; font-weight: 600; background: transparent; border: 0;
+      border-radius: 0; padding: 0; box-shadow: none;
+    }
+    .compare-line .vs { color: var(--muted); font-weight: 500; }
+    .compare-line .up, .compare-line .down {
+      display: inline-flex; align-items: center; gap: .1rem;
+      padding: .18rem .55rem; border-radius: 5px; font-weight: 700;
+    }
+    .compare-line .up { color: #1f6b3a; background: #e7f8d8; }
+    .compare-line .down { color: #b91c1c; background: #fee2e2; }
+    .grid { display: grid; gap: .85rem; margin-bottom: 1rem; }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 800px) { .grid-4, .grid-2 { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 520px) { .grid-4, .grid-2 { grid-template-columns: 1fr; } }
+    .stat {
+      background: var(--surface); border: 0; border-radius: var(--radius);
+      padding: 1rem 1.05rem; box-shadow: var(--shadow); position: relative; overflow: hidden;
+    }
+    .stat.accent { background: #fff; }
+    .stat.ok { background: #fff; }
+    .stat.warn { background: #fff; }
+    .stat .val {
+      font-size: 1.75rem; font-weight: 700; letter-spacing: -.03em; color: var(--ink);
+      display: inline-block; padding: .2rem .6rem; border-radius: 10px; background: var(--lime);
+    }
+    .stat .lbl { font-size: 14px; color: var(--muted); margin-top: .4rem; font-weight: 500; }
+    .stat .delta { font-size: 14px; margin-top: .35rem; font-weight: 700; }
+    .stat .delta.up { color: var(--ok); } .stat .delta.down { color: var(--bad); }
+    .callout {
+      border-radius: var(--radius); padding: 1rem 1.1rem; margin: .8rem 0 1rem;
+      border: 0; background: var(--surface); box-shadow: var(--shadow);
+    }
+    .callout.info { background: var(--accent-soft); }
+    .callout.warn { background: #fff8e8; }
+    .callout .title { font-weight: 700; margin-bottom: .25rem; color: var(--ink); }
+    .section-lead { color: var(--muted); margin: -.2rem 0 .8rem; font-size: 16px; }
+    table.product-table {
+      width: 100%; border-collapse: collapse; background: var(--surface);
+      border: 0; border-radius: var(--radius); overflow: hidden; font-size: 15px;
+      box-shadow: var(--shadow);
+    }
+    table.product-table th {
+      text-align: left; font-size: 14px; text-transform: none;
+      letter-spacing: .02em; color: var(--muted); background: #f3f7fa;
+      padding: .75rem .6rem; border-bottom: 1px solid var(--line); font-weight: 600;
+    }
+    table.product-table td { padding: .65rem .55rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+    table.product-table .num {
+      text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap;
+    }
+    .stat .val, .cpl-col, td.num, th.num { white-space: nowrap; }
+    table.product-table tr.row-sep { background: var(--accent-soft); }
+    table.product-table tr.row-total { background: var(--lime-soft); font-weight: 700; }
+    .muted { color: var(--muted); }
+    .charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; margin: .8rem 0 1.2rem; }
+    @media (max-width: 700px) { .charts-row { grid-template-columns: 1fr; } }
+    .chart-card {
+      background: var(--surface); border: 0; border-radius: var(--radius);
+      padding: 1rem 1.05rem; box-shadow: var(--shadow);
+    }
+    .chart-title { font-weight: 700; font-size: 17px; margin: 0 0 .2rem; }
+    .chart-sub { color: var(--muted); font-size: 14px; margin: 0 0 .55rem; }
+    .chart-box { height: 250px; position: relative; }
+    .footer { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+    .footer .report-meta { margin: 0 0 .65rem; color: var(--ink); font-size: 15px; }
+    .footer .report-meta strong { font-weight: 700; }
+    .toc-bar {
+      position: sticky; top: 0; z-index: 40;
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      margin-bottom: 1.2rem;
+      padding: .55rem 0;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      box-shadow: none;
+      backdrop-filter: none; -webkit-backdrop-filter: none;
+      transition: background .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .toc-bar.is-stuck {
+      background: rgba(255, 255, 255, 0.28);
+      backdrop-filter: blur(18px) saturate(1.35);
+      -webkit-backdrop-filter: blur(18px) saturate(1.35);
+      border-bottom-color: rgba(255, 255, 255, 0.45);
+      box-shadow: 0 10px 28px #1a1c1f0c;
+    }
+    .toc {
+      display: flex; flex-wrap: wrap; gap: .45rem;
+      width: min(100% - 2rem, var(--max));
+      margin: 0 auto; padding: 0;
+      background: transparent; box-shadow: none;
+    }
+    .toc a {
+      font-size: 14px; text-decoration: none; color: var(--ink); border: 0;
+      background: rgba(255, 255, 255, 0.72); padding: .4rem .85rem; border-radius: 999px;
+      font-weight: 600; box-shadow: var(--shadow-sm);
+      transition: background .15s ease, color .15s ease, box-shadow .15s ease;
+    }
+    .toc a:hover { color: var(--accent-2); background: var(--accent-soft); }
+    .toc a.is-active {
+      background: var(--lime); color: var(--ink);
+      box-shadow: 0 2px 10px #1a1c1f14;
+    }
+    h2[id], #итог { scroll-margin-top: 5rem; }
+    html, body { overflow-x: clip; }
+    ul.clean { margin: .3rem 0; padding-left: 1.1rem; }
+    code { font-size: .85em; background: #eef3f8; padding: .1rem .35rem; border-radius: 6px; color: var(--accent-2); }
+
+    /* Typography: base 18px, secondary ≥14px · Callivio accents (solid, no blue→lime blend) */
+    html { font-size: 18px; }
+    body { font-size: 18px; }
+    h1 { font-size: clamp(1.7rem, 3.6vw, 2.35rem); }
+    h2 { font-size: 1.45rem; }
+    .subtitle, .lede { font-size: 17px; }
+    .stat .lbl, .stat .delta, .chart-sub, .footer, .toc a,
+    .muted, .cmp-note, .meta, .rank-list .nums span, .gloss-name, .compare-line,
+    .small { font-size: 14px !important; }
+    table.product-table { font-size: 15px; }
+    table.product-table th { font-size: 14px; letter-spacing: .02em; }
+    .section-lead, .callout, .cmp-title { font-size: 16px; }
+    .chart-title { font-size: 17px; }
+    .stat .val { font-size: 1.85rem; }
+    .metric-key {
+      margin: 2rem 0 0; padding: 1rem 0 0; border-top: 1px solid var(--line);
+      color: var(--muted); font-size: 13px; line-height: 1.45;
+    }
+    .metric-key-label {
+      font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+      color: #9aa3ad; margin: 0 0 .55rem;
+    }
+    .metric-key p { margin: 0 0 .35rem; }
+    .metric-key b { color: var(--ink); font-weight: 700; }
+    .metric-key i { font-style: normal; color: #9aa3ad; font-weight: 500; }
+    .cmp-wrap {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: .85rem; margin: .4rem 0 1.2rem;
+    }
+    @media (max-width: 900px) { .cmp-wrap { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .cmp-wrap { grid-template-columns: 1fr; } }
+    .cmp-card {
+      background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 1rem 1.05rem; border: 0;
+    }
+    .cmp-title { font-weight: 700; margin-bottom: .5rem; color: var(--ink); font-size: 15px; }
+    .cmp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem .7rem; }
+    .cmp-grid span { display: block; margin-bottom: .15rem; color: var(--muted); font-size: 13px; }
+    .cmp-grid b { font-size: 1.2rem; letter-spacing: -.02em; white-space: nowrap; color: var(--ink); }
+    .cmp-note { margin-top: .45rem; font-size: 13px; }
+    /* Callivio-style ranks: solid lime fill on gray track, no blue→lime gradient */
+    .rank-list {
+      list-style: none; margin: 0; padding: 0; display: grid; gap: .85rem;
+    }
+    .rank-list li {
+      display: grid;
+      grid-template-columns: 1.6rem minmax(0, 1fr) auto;
+      grid-template-areas:
+        "rank who nums"
+        "rank bars bars";
+      gap: .25rem .65rem;
+      align-items: center;
+    }
+    .rank-list .rank {
+      grid-area: rank; width: 1.55rem; height: 1.55rem; border-radius: 0;
+      background: transparent; color: var(--muted); font-weight: 500; font-size: 14px;
+      display: grid; place-items: center; align-self: start; margin-top: .15rem;
+    }
+    .rank-list .who { grid-area: who; min-width: 0; }
+    .rank-list .who strong {
+      display: inline; font-size: 15px; font-weight: 700;
+    }
+    .rank-list .meta { margin-left: .4rem; white-space: nowrap; font-size: 13px; color: var(--muted); }
+    .rank-list .bars {
+      grid-area: bars; height: 8px; background: #e8eef2; border-radius: 99px; overflow: hidden;
+    }
+    .rank-list .bar {
+      display: block; height: 100%; width: var(--w); border-radius: 99px;
+      background: var(--lime);
+    }
+    .buyers-row .chart-card:nth-child(2) .rank-list .bar { background: var(--accent); }
+    .rank-list .nums {
+      grid-area: nums; display: flex; flex-direction: column; align-items: flex-end; gap: 0; min-width: 7.5rem;
+    }
+    .rank-list .nums b { font-size: 16px; font-weight: 700; white-space: nowrap; color: var(--ink); }
+    .rank-list .nums .muted { text-align: right; line-height: 1.25; }
+    .buyers-row { align-items: start; }
+
+
+    
+
+    
+    /* —— GEO infographic —— */
+    .geo-board {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.25rem 1.3rem 1.4rem;
+      margin: .55rem 0 1.35rem;
+    }
+    .geo-board-head {
+      display: flex; flex-wrap: wrap; justify-content: space-between;
+      align-items: baseline; gap: .5rem .9rem; margin-bottom: 1rem;
+    }
+    .geo-board-head .eyebrow {
+      font-size: 12px; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--accent-2); margin: 0;
+    }
+    .geo-board-head .date {
+      font-size: 14px; color: var(--muted); font-weight: 500; margin: 0;
+    }
+    .geo-kpis {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem;
+      margin-bottom: 1.1rem;
+    }
+    @media (max-width: 560px) { .geo-kpis { grid-template-columns: 1fr; } }
+    .geo-charts-duo {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1rem 1.25rem;
+      margin-bottom: 1.1rem;
+      align-items: start;
+    }
+    @media (max-width: 560px) { .geo-charts-duo { grid-template-columns: 1fr; } }
+    .geo-chart-box { height: 240px; position: relative; margin-top: .35rem; min-width: 0; }
+    .geo-chart-caption { font-size: 13px; margin: 0 0 .15rem; }
+    .geo-kpi {
+      background: #f7fafc; border-radius: 12px; padding: .85rem .9rem;
+      min-height: 5.2rem;
+    }
+    .geo-kpi .k { font-size: 13px; color: var(--muted); font-weight: 500; margin: 0 0 .35rem; }
+    .geo-kpi .v {
+      font-size: clamp(1.55rem, 3vw, 2rem); font-weight: 700;
+      letter-spacing: -.03em; line-height: 1.05; color: var(--ink); margin: 0;
+    }
+    .geo-kpi .v .lime {
+      display: inline-block; padding: .12rem .45rem; border-radius: 8px;
+      background: var(--lime);
+    }
+    .geo-kpi .s { font-size: 13px; color: var(--muted); margin: .35rem 0 0; font-weight: 500; }
+    .geo-kpi.accent { background: var(--accent-soft); }
+    .geo-kpi.warn { background: #fff4e8; }
+    .geo-split {
+      display: grid; grid-template-columns: 1.15fr 1fr; gap: 1rem 1.25rem;
+    }
+    @media (max-width: 700px) { .geo-split { grid-template-columns: 1fr; } }
+    .geo-panel h3 {
+      font-size: 15px; font-weight: 700; margin: 0 0 .55rem; letter-spacing: -.01em;
+    }
+    .sov-bars { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; }
+    .sov-bars li {
+      display: grid; grid-template-columns: minmax(0, 9.5rem) 1fr auto;
+      gap: .45rem .65rem; align-items: center; font-size: 14px;
+    }
+    @media (max-width: 560px) {
+      .sov-bars li { grid-template-columns: 1fr auto; }
+      .sov-bars .track { grid-column: 1 / -1; }
+    }
+    .sov-bars .name { font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sov-bars .name.is-us { font-weight: 700; }
+    .sov-bars .track { height: 8px; background: #e8eef2; border-radius: 99px; overflow: hidden; }
+    .sov-bars .fill { display: block; height: 100%; border-radius: 99px; background: var(--accent); }
+    .sov-bars .fill.us { background: var(--lime); }
+    .sov-bars .pct { font-variant-numeric: tabular-nums; font-weight: 700; min-width: 3.2rem; text-align: right; }
+    .prompt-grid { display: grid; gap: .45rem; }
+    .prompt-row {
+      display: flex; justify-content: space-between; align-items: center; gap: .6rem;
+      padding: .55rem .7rem; border-radius: 10px; background: #f7fafc; font-size: 14px;
+    }
+    .prompt-row.strong { background: var(--lime-soft); }
+    .prompt-row.weak { background: var(--bad-soft); }
+    .prompt-row b { font-weight: 700; }
+    .prompt-row .pct { font-weight: 700; font-variant-numeric: tabular-nums; }
+    .geo-note {
+      margin: .95rem 0 0; padding-top: .75rem; border-top: 1px solid var(--line);
+      font-size: 14px; color: var(--muted); line-height: 1.45;
+    }
+
+    /* —— Takeaways (white, meaning-first) —— */
+    .takeaways {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.35rem 1.4rem 1.5rem;
+      margin: .55rem 0 1.2rem;
+    }
+    .takeaways > .title {
+      font-size: 1.15rem; font-weight: 700; letter-spacing: -.02em;
+      margin: 0 0 1rem; color: var(--ink);
+    }
+    .take-item { margin: 0 0 1.05rem; padding: 0 0 1.05rem; border-bottom: 1px solid var(--line); }
+    .take-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: 0; }
+    .take-item .label {
+      display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .05em;
+      text-transform: uppercase; color: var(--accent-2); margin: 0 0 .35rem;
+    }
+    .take-item p {
+      margin: 0; font-size: 16px; line-height: 1.55; color: var(--ink); max-width: 42rem;
+    }
+    .take-item p .hl {
+      font-weight: 700; background: linear-gradient(180deg, transparent 58%, var(--lime) 58%);
+      padding: 0 .08em;
+    }
+    .take-item p .muted-inline { color: var(--muted); font-weight: 500; }
+
+    .badge-new {
+      display: inline-block; margin-left: .35rem; padding: .05rem .4rem;
+      font-size: 12px; font-weight: 700; letter-spacing: .02em; text-transform: lowercase;
+      color: #1a1c1f; background: var(--lime, #DDFD2C); border-radius: 3px; vertical-align: middle;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="brand-hero"><span>BEANABOX</span></div>
+      <h1>BEANABOX: продукт и динамика · апрель — сентябрь 2026</h1>
+      <p class="subtitle">Сначала показатели продукта, затем маркетинг и&nbsp;воронка продаж</p>
+      <p class="lede">
+        За шесть месяцев каталог — <strong>96&nbsp;активных лотов</strong> на&nbsp;30.09, база mini-app — до&nbsp;<strong>430&nbsp;пользователей</strong>.
+        Сентябрь — лучший месяц по&nbsp;GMV app (<strong>7,22&nbsp;млн&nbsp;₽</strong>, 27&nbsp;заказов) и&nbsp;по&nbsp;CR главной воронки Метрики (<strong>10,19%</strong>).
+        Органика после пика августа (215&nbsp;визитов) в&nbsp;сентябре <strong>161</strong> (10,1% визитов).
+      </p>
+      <div class="compare-line">
+        <span>Апр → Сен</span><span class="vs">·</span>
+        <span class="up"><span class="arrow">↑</span>активные лоты 66 → 96</span>
+        <span class="vs">·</span>
+        <span class="up"><span class="arrow">↑</span>users 258 → 429</span>
+        <span class="vs">·</span>
+        <span class="up"><span class="arrow">↑</span>GMV сен 7,22 млн</span>
+        <span class="vs">·</span>
+        <span class="down"><span class="arrow">↑</span>CPL 1 146 → 1 829 ₽</span>
+        <span class="vs">·</span>
+        <span class="up"><span class="arrow">↑</span>CR воронки 7,94% → 10,19%</span>
+      </div>
+    </header>
+
+    <div class="toc-bar">
+    <nav class="toc" id="report-toc" aria-label="Разделы отчёта">
+      <a href="#table">Таблица</a>
+      <a href="#catalog">Каталог</a>
+      <a href="#sales">Продажи</a>
+      <a href="#bought">Что купили</a>
+      <a href="#buyers">Кто покупает</a>
+      <a href="#users">Users</a>
+      <a href="#marketing">Маркетинг</a>
+      <a href="#funnel">Воронка</a>
+      <a href="#ai-visibility">Нейросети</a>
+      <a href="#cross">Сквозная</a>
+      <a href="#changes">Изменения</a>
+      <a href="#итог">Итог</a>
+    </nav>
+    </div>
+
+    <div class="grid grid-4">
+      <div class="stat accent">
+        <div class="val">7,22 млн</div>
+        <div class="lbl">GMV app (сентябрь)</div>
+        <div class="delta up">↑ ×4,6 к августу · 27 заказов</div>
+      </div>
+      <div class="stat warn">
+        <div class="val">~267 тыс.</div>
+        <div class="lbl">Средний чек (сентябрь)</div>
+        <div class="delta up">↑ к августу (~173 тыс.)</div>
+      </div>
+      <div class="stat accent">
+        <div class="val">96</div>
+        <div class="lbl">Активных лотов на 30.09</div>
+        <div class="delta up">↑ +6 в сентябре · скрытые не считаем</div>
+      </div>
+      <div class="stat ok">
+        <div class="val">430</div>
+        <div class="lbl">Пользователей mini-app</div>
+        <div class="delta up">↑ +38 за сентябрь</div>
+      </div>
+    </div>
+
+
+
+
+    <h2 id="table">1. Главная таблица · апрель — сентябрь</h2>
+    <p class="section-lead">
+      CPL = стоимость конверсии из отчёта Forsite (расход ÷ конверсии Директа, без НДС и АК). В таблице: <strong>Директ</strong> = конверсии агентства · <strong>Tilda</strong> = формы сайта (справка). <strong>ИТОГО</strong> CPL = сумма расходов ÷ сумма конверсий Директа.
+      Воронка — «Главная воронка продаж» Метрики (уники по шагам: открытие → успешный заказ). Сен — UI-отчёт; апр–авг — API уники тех же целей. Октябрь не входит.
+    </p>
+
+    <div style="overflow-x:auto">
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th>Месяц</th>
+          <th class="num">Лоты<br><span style="font-weight:500;text-transform:none">новые / ∑</span></th>
+          <th class="num">География<br><span style="font-weight:500;text-transform:none">в новых → ∑</span></th>
+          <th class="num">Users<br><span style="font-weight:500;text-transform:none">новые</span></th>
+          <th class="num">Заказы<br><span style="font-weight:500;text-transform:none">app</span></th>
+          <th class="num">Лиды<br><span style="font-weight:500;text-transform:none">Директ / Tilda</span></th>
+          <th class="num cpl-col">CPL<br><span style="font-weight:500;text-transform:none">₽ / конверсия</span></th>
+          <th class="num">Расход<br><span style="font-weight:500;text-transform:none">Директ</span></th>
+          <th class="num">Публикации<br><span style="font-weight:500;text-transform:none">сайт</span></th>
+          <th class="num">Органика<br><span style="font-weight:500;text-transform:none">визиты / доля</span></th>
+          <th class="num">Воронка<br><span style="font-weight:500;text-transform:none">вход → выход / CR</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td><strong>Апр</strong></td>
+          <td class="num">4 / 70</td>
+          <td class="num">6 → 20<br><span class="muted" style="font-size:14px">Коста-Рика, Танзания</span></td>
+          <td class="num">59<br><span class="muted" style="font-size:14px">∑ 258</span></td>
+          <td class="num">9</td>
+          <td class="num">26 / 24</td>
+          <td class="num cpl-col">1 146 ₽</td>
+          <td class="num">29 797 ₽</td>
+          <td class="num">6</td>
+          <td class="num">26<br><span class="muted" style="font-size:14px">1,2%</span></td>
+          <td class="num">126 → 10<br><span class="muted" style="font-size:14px">7,94%</span></td>
+        </tr>
+        <tr>
+          <td><strong>Май</strong></td>
+          <td class="num">2 / 72</td>
+          <td class="num">3 → 20<br><span class="muted" style="font-size:14px">—</span></td>
+          <td class="num">40<br><span class="muted" style="font-size:14px">∑ 298</span></td>
+          <td class="num">16</td>
+          <td class="num">31 / 32</td>
+          <td class="num cpl-col">727 ₽</td>
+          <td class="num">22 538 ₽</td>
+          <td class="num">14</td>
+          <td class="num">29<br><span class="muted" style="font-size:14px">2,9%</span></td>
+          <td class="num">111 → 8<br><span class="muted" style="font-size:14px">7,21%</span></td>
+        </tr>
+        <tr>
+          <td><strong>Июн</strong></td>
+          <td class="num">2 / 74</td>
+          <td class="num">2 → 20<br><span class="muted" style="font-size:14px">—</span></td>
+          <td class="num">42<br><span class="muted" style="font-size:14px">∑ 340</span></td>
+          <td class="num">16</td>
+          <td class="num">15 / 17</td>
+          <td class="num cpl-col">2 297 ₽</td>
+          <td class="num">34 461 ₽</td>
+          <td class="num">10</td>
+          <td class="num">88<br><span class="muted" style="font-size:14px">7,2%</span></td>
+          <td class="num">120 → 9<br><span class="muted" style="font-size:14px">7,5%</span></td>
+        </tr>
+        <tr>
+          <td><strong>Июл</strong></td>
+          <td class="num">16 / 90</td>
+          <td class="num">10 → 22<br><span class="muted" style="font-size:14px">Бурунди, Индонезия</span></td>
+          <td class="num">32<br><span class="muted" style="font-size:14px">∑ 372</span></td>
+          <td class="num">14</td>
+          <td class="num">11 / 12</td>
+          <td class="num cpl-col">2 543 ₽</td>
+          <td class="num">27 973 ₽</td>
+          <td class="num">10</td>
+          <td class="num">150<br><span class="muted" style="font-size:14px">12,4%</span></td>
+          <td class="num">103 → 6<br><span class="muted" style="font-size:14px">5,83%</span></td>
+        </tr>
+        <tr>
+          <td><strong>Авг</strong></td>
+          <td class="num">0 / 90</td>
+          <td class="num">1 → 22<br><span class="muted" style="font-size:14px">—</span></td>
+          <td class="num">19<br><span class="muted" style="font-size:14px">∑ 391</span></td>
+          <td class="num">9</td>
+          <td class="num">10 / 11</td>
+          <td class="num cpl-col">2 822 ₽</td>
+          <td class="num">28 218 ₽</td>
+          <td class="num">12</td>
+          <td class="num">217<br><span class="muted" style="font-size:14px">16,6%</span></td>
+          <td class="num">85 → 4<br><span class="muted" style="font-size:14px">4,71%</span></td>
+        </tr>
+        <tr class="row-sep">
+          <td><strong>Сен</strong></td>
+          <td class="num">6 / 96</td>
+          <td class="num">0 → 22<br><span class="muted" style="font-size:14px">—</span></td>
+          <td class="num">38<br><span class="muted" style="font-size:14px">∑ 429</span></td>
+          <td class="num">27</td>
+          <td class="num">15 / 24</td>
+          <td class="num cpl-col">1 829 ₽</td>
+          <td class="num">27 429 ₽</td>
+          <td class="num">9</td>
+          <td class="num">161<br><span class="muted" style="font-size:14px">10,1%</span></td>
+          <td class="num">108 → 11<br><span class="muted" style="font-size:14px">10,19%</span></td>
+        </tr>
+        <tr class="row-total">
+          <td><strong>ИТОГО</strong></td>
+          <td class="num">30 / 96</td>
+          <td class="num">— / 22</td>
+          <td class="num">230<br><span class="muted" style="font-size:14px">∑ 430</span></td>
+          <td class="num">91</td>
+          <td class="num">108 / 120</td>
+          <td class="num cpl-col">1 578 ₽</td>
+          <td class="num">170 416 ₽</td>
+          <td class="num">61</td>
+          <td class="num">671</td>
+          <td class="num">653 → 48<br><span class="muted" style="font-size:14px">7,35%</span></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2 id="catalog">2. Насыщенность каталога лотами</h2>
+    <p class="section-lead">Только активные лоты на 30.09.2026 (Strapi: isHide ≠ true, createdAt ≤ 30.09). Скрытые не входят. Сентябрь: +6 → ∑96.</p>
+    <div class="charts-row">
+      <div class="chart-card">
+        <p class="chart-title">Лоты накопительно</p>
+        <p class="chart-sub">Активные лоты накопительно · скрытые исключены</p>
+        <div class="chart-box"><canvas id="chartLots"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <p class="chart-title">География (топ стран в Strapi)</p>
+        <p class="chart-sub">Только активные на 30.09 · по названию лота</p>
+        <ul class="clean"><li><strong>Панама</strong> — 21 лот</li><li><strong>Колумбия</strong> — 15 лотов</li><li><strong>Бразилия</strong> — 12 лотов</li><li><strong>Эфиопия</strong> — 10 лотов</li><li><strong>Вьетнам</strong> — 7 лотов</li><li><strong>Уганда</strong> — 6 лотов</li><li><strong>Индия</strong> — 5 лотов</li><li><strong>Кения</strong> — 2 лота</li></ul>
+      </div>
+    </div>
+
+    <h2 id="sales">3. Продажи и оборот mini-app</h2>
+    <p class="section-lead">GMV и средний чек по активным заказам (не отменённые). Апр–авг — из прошлого отчёта; сентябрь — Strapi.</p>
+    <div class="charts-row">
+      <div class="chart-card">
+        <p class="chart-title">GMV, млн ₽</p>
+        <p class="chart-sub">Сентябрь 7,22 млн · 27 заказов · 20 компаний</p>
+        <div class="chart-box"><canvas id="chartGmv"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <p class="chart-title">Заказы app, шт</p>
+        <p class="chart-sub">Позитивные статусы</p>
+        <div class="chart-box"><canvas id="chartOrders"></canvas></div>
+      </div>
+    </div>
+
+    
+    
+    
+    
+    
+    
+    <h2 id="bought">2.1. Что купили</h2>
+    <p class="section-lead">Период апр–сен 2026 · только позитивные заказы (оплачен / доставка / получен / самовывоз). Килограммы и топ SKU — по строкам состава; ₽ в этом блоке — сумма строк (<code>discount.rub</code> / <code>price.rub</code>), не GMV. GMV отчёта = итог счёта <code>order.price</code>.</p>
+    <div class="callout info">
+      <div class="title">Объём и выручка по строкам состава</div>
+      Апр–сен: <strong>14 520 кг</strong> по <strong>50 позициям</strong>, сумма строк <strong>14 354 722 ₽</strong>.
+      Сентябрь: <strong>7 430 кг</strong> по <strong>20 позициям</strong>, <strong>7 237 844 ₽</strong> — 51% объёма апр–сен.
+    </div>
+    <div class="charts-row">
+      <div class="chart-card">
+        <p class="chart-title">Топ по кг — апр–сен 2026</p>
+        <p class="chart-sub">Позитивные заказы · кг · сумма строк · число заказов с SKU</p>
+        <div style="overflow-x:auto">
+        <table class="product-table">
+          <thead>
+            <tr>
+              <th class="num">#</th>
+              <th>Позиция</th>
+              <th class="num">кг</th>
+              <th class="num">₽</th>
+              <th class="num">зак.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="num">1</td><td>Arabica Colombia Supremo Huila Pitalito</td><td class="num">4 164</td><td class="num">4 353 521 ₽</td><td class="num">23</td></tr>
+<tr><td class="num">2</td><td>Arabica Brazil Santos NY2 17/18 FC</td><td class="num">3 240</td><td class="num">2 910 133 ₽</td><td class="num">9</td></tr>
+<tr><td class="num">3</td><td>Arabica Ethiopia Sidamo gr4 Natural grainpro</td><td class="num">945</td><td class="num">807 531 ₽</td><td class="num">8</td></tr>
+<tr><td class="num">4</td><td>Arabica Ethiopia Sidama UG natural grainpro</td><td class="num">600</td><td class="num">394 253 ₽</td><td class="num">1</td></tr>
+<tr><td class="num">5</td><td>Arabica Honduras SHG washed</td><td class="num">552</td><td class="num">627 802 ₽</td><td class="num">5</td></tr>
+<tr><td class="num">6</td><td>Arabica Peru gr 1 HB</td><td class="num">461</td><td class="num">473 057 ₽</td><td class="num">6</td></tr>
+<tr><td class="num">7</td><td>Arabica Brazil Santos NY2/3 scr 14/16 FC</td><td class="num">430</td><td class="num">334 955 ₽</td><td class="num">4</td></tr>
+<tr><td class="num">8</td><td>Robusta Vietnam 18 Blue Tiger (blue dragon)</td><td class="num">420</td><td class="num">247 089 ₽</td><td class="num">3</td></tr>
+<tr><td class="num">9</td><td>Arabica Ethiopia Sidamo Gr. 2 Guji Grainpro Washed</td><td class="num">316</td><td class="num">352 372 ₽</td><td class="num">8</td></tr>
+<tr><td class="num">10</td><td>Arabica Ethiopia Sidamo gr 3 Natural</td><td class="num">315</td><td class="num">333 943 ₽</td><td class="num">5</td></tr>
+<tr><td class="num">11</td><td>Arabica Ethiopia Limu gr 2 washed grainpro</td><td class="num">300</td><td class="num">337 129 ₽</td><td class="num">3</td></tr>
+<tr><td class="num">12</td><td>Robusta Canephora Uganda DHP scr 17</td><td class="num">300</td><td class="num">166 809 ₽</td><td class="num">1</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <div class="chart-card">
+        <p class="chart-title">Топ по кг — сентябрь 2026</p>
+        <p class="chart-sub">Позитивные заказы сентября · лидеры Colombia + Brazil Santos</p>
+        <div style="overflow-x:auto">
+        <table class="product-table">
+          <thead>
+            <tr>
+              <th class="num">#</th>
+              <th>Позиция</th>
+              <th class="num">кг</th>
+              <th class="num">₽</th>
+              <th class="num">зак.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="num">1</td><td>Arabica Colombia Supremo Huila Pitalito</td><td class="num">3 428</td><td class="num">3 540 614 ₽</td><td class="num">10</td></tr>
+<tr><td class="num">2</td><td>Arabica Brazil Santos NY2 17/18 FC</td><td class="num">2 100</td><td class="num">1 889 445 ₽</td><td class="num">5</td></tr>
+<tr><td class="num">3</td><td>Arabica Ethiopia Sidamo gr4 Natural grainpro</td><td class="num">360</td><td class="num">318 491 ₽</td><td class="num">1</td></tr>
+<tr><td class="num">4</td><td>Robusta Vietnam 18 Blue Tiger (blue dragon)</td><td class="num">300</td><td class="num">176 461 ₽</td><td class="num">2</td></tr>
+<tr><td class="num">5</td><td>Arabica Peru gr 1 HB</td><td class="num">282</td><td class="num">296 894 ₽</td><td class="num">3</td></tr>
+<tr><td class="num">6</td><td>Arabica Guatemala Decaf</td><td class="num">201</td><td class="num">262 468 ₽</td><td class="num">4</td></tr>
+<tr><td class="num">7</td><td>Arabica Brazil Santos NY2/3 scr 14/16 FC</td><td class="num">190</td><td class="num">158 496 ₽</td><td class="num">2</td></tr>
+<tr><td class="num">8</td><td>Arabica Ethiopia Sidamo gr 3 Natural</td><td class="num">180</td><td class="num">193 008 ₽</td><td class="num">2</td></tr>
+<tr><td class="num">9</td><td>Arabica Ethiopia Yirgacheffe gr4 natural grainpro</td><td class="num">98</td><td class="num">93 043 ₽</td><td class="num">5</td></tr>
+<tr><td class="num">10</td><td>Arabica Ethiopia Sidamo Gr. 2 Guji Grainpro Washed</td><td class="num">72</td><td class="num">83 622 ₽</td><td class="num">2</td></tr>
+<tr><td class="num">11</td><td>Arabica Vietnam Blue Son la scr 18 washed</td><td class="num">60</td><td class="num">68 180 ₽</td><td class="num">1</td></tr>
+<tr><td class="num">12</td><td>Robusta Canephora Uganda scr 17</td><td class="num">60</td><td class="num">36 459 ₽</td><td class="num">1</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <h2 id="buyers">4. Кто покупает: пользователь и контрагент</h2>
+    <p class="section-lead">
+      Позитивные заказы (оплачен / доставка / получен / самовывоз). Период: <strong>апрель — сентябрь 2026</strong>.
+      Внутренние заказы на ИП Старостин исключены.
+      <strong>Пользователь</strong> — аккаунт mini-app (Strapi profile), из которого оформили заказ (связь <code>orderId</code> в <code>profile.history</code>). ФИО/телефон в самом заказе могут быть клиента.
+      <strong>Контрагент</strong> — на кого выписан заказ (<code>company</code> + ИНН).
+      Часто это разные люди/юрлица: за период в 56 из 63 заказов ФИО в заказе ≠ company.
+      Полоска и % — вклад в GMV периода (100% = вся сумма ниже).
+      Бейдж <span class="badge-new">новый</span> у пользователя — регистрация профиля в сентябре + покупка в сентябре; у контрагента — первый позитивный заказ этого company+ИНН <em>за всю историю</em> пришёлся на сентябрь.
+       Новых контрагентов в сентябре: <strong>12</strong> (3,87 млн ₽, 53,6% сент. GMV) — в топе сентября помечены <span class="badge-new">новый</span>.
+    </p>
+
+    <div class="cmp-wrap">
+      <div class="cmp-card">
+  <div class="cmp-title">Заказы</div>
+  <div class="cmp-grid">
+    <div><span class="muted">Апр–сен</span><b>63</b></div>
+    <div><span class="muted">Сентябрь</span><b>27</b></div>
+  </div>
+  <div class="cmp-note muted">сен = 42,9% от всего</div>
+</div>
+<div class="cmp-card">
+  <div class="cmp-title">GMV</div>
+  <div class="cmp-grid">
+    <div><span class="muted">Апр–сен</span><b>14,16 млн ₽</b></div>
+    <div><span class="muted">Сентябрь</span><b>7,22 млн ₽</b></div>
+  </div>
+  <div class="cmp-note muted">сен = 51% от всего</div>
+</div>
+<div class="cmp-card">
+  <div class="cmp-title">Уник. пользователи</div>
+  <div class="cmp-grid">
+    <div><span class="muted">Апр–сен</span><b>15</b></div>
+    <div><span class="muted">Сентябрь</span><b>9</b></div>
+  </div>
+  <div class="cmp-note muted">кто оформлял (fio+телефон)</div>
+</div>
+<div class="cmp-card">
+  <div class="cmp-title">Уник. контрагенты</div>
+  <div class="cmp-grid">
+    <div><span class="muted">Апр–сен</span><b>34</b></div>
+    <div><span class="muted">Сентябрь</span><b>20</b></div>
+  </div>
+  <div class="cmp-note muted">company+ИНН</div>
+</div>
+<div class="cmp-card">
+  <div class="cmp-title">Новые контрагенты</div>
+  <div class="cmp-grid">
+    <div><span class="muted">Апр–сен</span><b>—</b></div>
+    <div><span class="muted">Сентябрь</span><b>12</b></div>
+  </div>
+  <div class="cmp-note muted">53,6% сент. GMV</div>
+</div>
+<div class="cmp-card">
+  <div class="cmp-title">Средний чек</div>
+  <div class="cmp-grid">
+    <div><span class="muted">Апр–сен</span><b>225 тыс. ₽</b></div>
+    <div><span class="muted">Сентябрь</span><b>267 тыс. ₽</b></div>
+  </div>
+  <div class="cmp-note muted">GMV ÷ заказы</div>
+</div>
+<div class="cmp-card">
+  <div class="cmp-title">Повторные пользователи</div>
+  <div class="cmp-grid">
+    <div><span class="muted">Апр–сен</span><b>7</b></div>
+    <div><span class="muted">Сентябрь</span><b>3</b></div>
+  </div>
+  <div class="cmp-note muted">≥2 заказа</div>
+</div>
+<div class="cmp-card">
+  <div class="cmp-title">Повторные контрагенты</div>
+  <div class="cmp-grid">
+    <div><span class="muted">Апр–сен</span><b>11</b></div>
+    <div><span class="muted">Сентябрь</span><b>5</b></div>
+  </div>
+  <div class="cmp-note muted">≥2 заказа</div>
+</div>
+<div class="cmp-card">
+  <div class="cmp-title">Топ-5 пользователей, доля GMV</div>
+  <div class="cmp-grid">
+    <div><span class="muted">Апр–сен</span><b>95%</b></div>
+    <div><span class="muted">Сентябрь</span><b>95,8%</b></div>
+  </div>
+  <div class="cmp-note muted">концентрация</div>
+</div>
+<div class="cmp-card">
+  <div class="cmp-title">Топ-5 контрагентов, доля GMV</div>
+  <div class="cmp-grid">
+    <div><span class="muted">Апр–сен</span><b>75%</b></div>
+    <div><span class="muted">Сентябрь</span><b>81,3%</b></div>
+  </div>
+  <div class="cmp-note muted">концентрация</div>
+</div>
+    </div>
+
+    <div class="charts-row buyers-row">
+      <div class="chart-card">
+        <p class="chart-title">Топ пользователей · апр–сен</p>
+        <p class="chart-sub">100% = 14,16 млн ₽ · 15 уник. · 63 заказов</p>
+        <ol class="rank-list"><li>
+  <span class="rank">1</span>
+  <div class="who">
+    <strong>Сергей Бурым</strong>
+    <span class="muted meta">20 контр.</span>
+  </div>
+  <div class="bars" title="41% от суммы GMV"><span class="bar" style="--w:41.3%"></span></div>
+  <div class="nums">
+    <b>41%</b>
+    <span class="muted">5,84 млн ₽ · 28 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">2</span>
+  <div class="who">
+    <strong>German Gridin</strong>
+    <span class="muted meta">1 контр.</span>
+  </div>
+  <div class="bars" title="41% от суммы GMV"><span class="bar" style="--w:40.9%"></span></div>
+  <div class="nums">
+    <b>41%</b>
+    <span class="muted">5,79 млн ₽ · 12 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">3</span>
+  <div class="who">
+    <strong>Эдуард</strong>
+    <span class="muted meta">2 контр.</span>
+  </div>
+  <div class="bars" title="8,8% от суммы GMV"><span class="bar" style="--w:8.8%"></span></div>
+  <div class="nums">
+    <b>8,8%</b>
+    <span class="muted">1,25 млн ₽ · 7 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">4</span>
+  <div class="who">
+    <strong>Андрей Абрамов</strong>
+    <span class="muted meta">1 контр.</span>
+  </div>
+  <div class="bars" title="2,5% от суммы GMV"><span class="bar" style="--w:2.5%"></span></div>
+  <div class="nums">
+    <b>2,5%</b>
+    <span class="muted">361 тыс. ₽ · 2 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">5</span>
+  <div class="who">
+    <strong>Дмитрий Бардунов</strong>
+    <span class="muted meta">1 контр.</span>
+  </div>
+  <div class="bars" title="1,5% от суммы GMV"><span class="bar" style="--w:1.5%"></span></div>
+  <div class="nums">
+    <b>1,5%</b>
+    <span class="muted">213 тыс. ₽ · 1 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">6</span>
+  <div class="who">
+    <strong>Никита Д.</strong>
+    <span class="muted meta">2 контр.</span>
+  </div>
+  <div class="bars" title="1,2% от суммы GMV"><span class="bar" style="--w:1.5%"></span></div>
+  <div class="nums">
+    <b>1,2%</b>
+    <span class="muted">176 тыс. ₽ · 2 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">7</span>
+  <div class="who">
+    <strong>Мухаммад</strong>
+    <span class="muted meta">1 контр.</span>
+  </div>
+  <div class="bars" title="0,9% от суммы GMV"><span class="bar" style="--w:1.5%"></span></div>
+  <div class="nums">
+    <b>0,9%</b>
+    <span class="muted">130 тыс. ₽ · 1 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">8</span>
+  <div class="who">
+    <strong>Владимир</strong>
+    <span class="muted meta">1 контр.</span>
+  </div>
+  <div class="bars" title="0,9% от суммы GMV"><span class="bar" style="--w:1.5%"></span></div>
+  <div class="nums">
+    <b>0,9%</b>
+    <span class="muted">120 тыс. ₽ · 1 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">9</span>
+  <div class="who">
+    <strong>Александр Барышников</strong>
+    <span class="muted meta">1 контр.</span>
+  </div>
+  <div class="bars" title="0,7% от суммы GMV"><span class="bar" style="--w:1.5%"></span></div>
+  <div class="nums">
+    <b>0,7%</b>
+    <span class="muted">105 тыс. ₽ · 2 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">10</span>
+  <div class="who">
+    <strong>Владислав</strong>
+    <span class="muted meta">2 контр.</span>
+  </div>
+  <div class="bars" title="0,6% от суммы GMV"><span class="bar" style="--w:1.5%"></span></div>
+  <div class="nums">
+    <b>0,6%</b>
+    <span class="muted">79 тыс. ₽ · 2 зак.</span>
+  </div>
+</li></ol>
+      </div>
+      <div class="chart-card">
+        <p class="chart-title">Топ пользователей · сентябрь</p>
+        <p class="chart-sub">100% = 7,22 млн ₽ · 9 уник. · 27 заказов</p>
+        <ol class="rank-list"><li>
+  <span class="rank">1</span>
+  <div class="who">
+    <strong>Сергей Бурым</strong>
+    <span class="muted meta">11 контр.</span>
+  </div>
+  <div class="bars" title="52% от суммы GMV"><span class="bar" style="--w:52.3%"></span></div>
+  <div class="nums">
+    <b>52%</b>
+    <span class="muted">3,78 млн ₽ · 16 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">2</span>
+  <div class="who">
+    <strong>German Gridin</strong>
+    <span class="muted meta">1 контр.</span>
+  </div>
+  <div class="bars" title="30% от суммы GMV"><span class="bar" style="--w:29.6%"></span></div>
+  <div class="nums">
+    <b>30%</b>
+    <span class="muted">2,14 млн ₽ · 3 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">3</span>
+  <div class="who">
+    <strong>Эдуард</strong>
+    <span class="muted meta">2 контр.</span>
+  </div>
+  <div class="bars" title="7,9% от суммы GMV"><span class="bar" style="--w:7.9%"></span></div>
+  <div class="nums">
+    <b>7,9%</b>
+    <span class="muted">568 тыс. ₽ · 2 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">4</span>
+  <div class="who">
+    <strong>Андрей Абрамов</strong>
+    <span class="muted meta">1 контр.</span>
+  </div>
+  <div class="bars" title="3% от суммы GMV"><span class="bar" style="--w:3.0%"></span></div>
+  <div class="nums">
+    <b>3%</b>
+    <span class="muted">218 тыс. ₽ · 1 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">5</span>
+  <div class="who">
+    <strong>Дмитрий Бардунов</strong>
+    <span class="muted meta">1 контр.</span>
+  </div>
+  <div class="bars" title="3% от суммы GMV"><span class="bar" style="--w:3.0%"></span></div>
+  <div class="nums">
+    <b>3%</b>
+    <span class="muted">213 тыс. ₽ · 1 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">6</span>
+  <div class="who">
+    <strong>Мухаммад</strong>
+    <span class="muted meta">1 контр.</span>
+  </div>
+  <div class="bars" title="1,8% от суммы GMV"><span class="bar" style="--w:1.8%"></span></div>
+  <div class="nums">
+    <b>1,8%</b>
+    <span class="muted">130 тыс. ₽ · 1 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">7</span>
+  <div class="who">
+    <strong>Никита Д.</strong>
+    <span class="muted meta">1 контр.</span>
+  </div>
+  <div class="bars" title="1,4% от суммы GMV"><span class="bar" style="--w:1.5%"></span></div>
+  <div class="nums">
+    <b>1,4%</b>
+    <span class="muted">103 тыс. ₽ · 1 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">8</span>
+  <div class="who">
+    <strong>Александр Барышников</strong>
+    <span class="muted meta">1 контр.</span>
+  </div>
+  <div class="bars" title="0,9% от суммы GMV"><span class="bar" style="--w:1.5%"></span></div>
+  <div class="nums">
+    <b>0,9%</b>
+    <span class="muted">63 тыс. ₽ · 1 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">9</span>
+  <div class="who">
+    <strong>Татьяна</strong>
+    <span class="muted meta">1 контр.</span>
+  </div>
+  <div class="bars" title="0,1% от суммы GMV"><span class="bar" style="--w:1.5%"></span></div>
+  <div class="nums">
+    <b>0,1%</b>
+    <span class="muted">10 тыс. ₽ · 1 зак.</span>
+  </div>
+</li></ol>
+      </div>
+    </div>
+
+    <div class="charts-row buyers-row">
+      <div class="chart-card">
+        <p class="chart-title">Топ контрагентов · апр–сен</p>
+        <p class="chart-sub">100% = 14,16 млн ₽ · топ-5 = 75%</p>
+        <ol class="rank-list"><li>
+  <span class="rank">1</span>
+  <div class="who">
+    <strong>ООО "АНИМА"</strong>
+    <span class="muted meta">ИНН 6671320828</span>
+  </div>
+  <div class="bars" title="41% от суммы GMV"><span class="bar" style="--w:40.9%"></span></div>
+  <div class="nums">
+    <b>41%</b>
+    <span class="muted">5,79 млн ₽ · 12 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">2</span>
+  <div class="who">
+    <strong>ООО "ГЛОБАЛ"</strong>
+    <span class="muted meta">ИНН 5050163666</span>
+  </div>
+  <div class="bars" title="18% от суммы GMV"><span class="bar" style="--w:18.3%"></span></div>
+  <div class="nums">
+    <b>18%</b>
+    <span class="muted">2,59 млн ₽ · 1 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">3</span>
+  <div class="who">
+    <strong>ИП Паркуев М. А.</strong>
+    <span class="muted meta">ИНН 057000292051</span>
+  </div>
+  <div class="bars" title="6,5% от суммы GMV"><span class="bar" style="--w:6.5%"></span></div>
+  <div class="nums">
+    <b>6,5%</b>
+    <span class="muted">915 тыс. ₽ · 2 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">4</span>
+  <div class="who">
+    <strong>ИП Володьков В. В.</strong>
+    <span class="muted meta">ИНН 231121820364</span>
+  </div>
+  <div class="bars" title="6,2% от суммы GMV"><span class="bar" style="--w:6.2%"></span></div>
+  <div class="nums">
+    <b>6,2%</b>
+    <span class="muted">885 тыс. ₽ · 2 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">5</span>
+  <div class="who">
+    <strong>ИП Орловская А. А.</strong>
+    <span class="muted meta">ИНН 860906764020</span>
+  </div>
+  <div class="bars" title="3,1% от суммы GMV"><span class="bar" style="--w:3.1%"></span></div>
+  <div class="nums">
+    <b>3,1%</b>
+    <span class="muted">443 тыс. ₽ · 6 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">6</span>
+  <div class="who">
+    <strong>ООО "ПАЛЬМИРА"</strong>
+    <span class="muted meta">ИНН 7838066549</span>
+  </div>
+  <div class="bars" title="2,8% от суммы GMV"><span class="bar" style="--w:2.8%"></span></div>
+  <div class="nums">
+    <b>2,8%</b>
+    <span class="muted">394 тыс. ₽ · 1 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">7</span>
+  <div class="who">
+    <strong>ИП Ткаченко И. Г.</strong>
+    <span class="muted meta">ИНН 262900857370</span>
+  </div>
+  <div class="bars" title="2,6% от суммы GMV"><span class="bar" style="--w:2.6%"></span></div>
+  <div class="nums">
+    <b>2,6%</b>
+    <span class="muted">363 тыс. ₽ · 1 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">8</span>
+  <div class="who">
+    <strong>ИП Абрамов А. Г.</strong>
+    <span class="muted meta">ИНН 562701366305</span>
+  </div>
+  <div class="bars" title="2,5% от суммы GMV"><span class="bar" style="--w:2.5%"></span></div>
+  <div class="nums">
+    <b>2,5%</b>
+    <span class="muted">361 тыс. ₽ · 2 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">9</span>
+  <div class="who">
+    <strong>ООО "АКИБАРА"</strong>
+    <span class="muted meta">ИНН 6143100237</span>
+  </div>
+  <div class="bars" title="2,2% от суммы GMV"><span class="bar" style="--w:2.2%"></span></div>
+  <div class="nums">
+    <b>2,2%</b>
+    <span class="muted">315 тыс. ₽ · 5 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">10</span>
+  <div class="who">
+    <strong>ИП Сурцева Ю. А.</strong>
+    <span class="muted meta">ИНН 233411607641</span>
+  </div>
+  <div class="bars" title="2,1% от суммы GMV"><span class="bar" style="--w:2.1%"></span></div>
+  <div class="nums">
+    <b>2,1%</b>
+    <span class="muted">303 тыс. ₽ · 2 зак.</span>
+  </div>
+</li></ol>
+      </div>
+      <div class="chart-card">
+        <p class="chart-title">Топ контрагентов · сентябрь</p>
+        <p class="chart-sub">100% = 7,22 млн ₽ · топ-5 = 81,3%</p>
+        <ol class="rank-list"><li>
+  <span class="rank">1</span>
+  <div class="who">
+    <strong>ООО "ГЛОБАЛ"</strong> <span class="badge-new">новый</span>
+    <span class="muted meta">ИНН 5050163666</span>
+  </div>
+  <div class="bars" title="36% от суммы GMV"><span class="bar" style="--w:36.0%"></span></div>
+  <div class="nums">
+    <b>36%</b>
+    <span class="muted">2,59 млн ₽ · 1 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">2</span>
+  <div class="who">
+    <strong>ООО "АНИМА"</strong>
+    <span class="muted meta">ИНН 6671320828</span>
+  </div>
+  <div class="bars" title="30% от суммы GMV"><span class="bar" style="--w:29.6%"></span></div>
+  <div class="nums">
+    <b>30%</b>
+    <span class="muted">2,14 млн ₽ · 3 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">3</span>
+  <div class="who">
+    <strong>ИП Володьков В. В.</strong>
+    <span class="muted meta">ИНН 231121820364</span>
+  </div>
+  <div class="bars" title="6,5% от суммы GMV"><span class="bar" style="--w:6.5%"></span></div>
+  <div class="nums">
+    <b>6,5%</b>
+    <span class="muted">469 тыс. ₽ · 1 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">4</span>
+  <div class="who">
+    <strong>ИП Ткаченко И. Г.</strong> <span class="badge-new">новый</span>
+    <span class="muted meta">ИНН 262900857370</span>
+  </div>
+  <div class="bars" title="5% от суммы GMV"><span class="bar" style="--w:5.0%"></span></div>
+  <div class="nums">
+    <b>5%</b>
+    <span class="muted">363 тыс. ₽ · 1 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">5</span>
+  <div class="who">
+    <strong>ИП Сурцева Ю. А.</strong>
+    <span class="muted meta">ИНН 233411607641</span>
+  </div>
+  <div class="bars" title="4,2% от суммы GMV"><span class="bar" style="--w:4.2%"></span></div>
+  <div class="nums">
+    <b>4,2%</b>
+    <span class="muted">303 тыс. ₽ · 2 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">6</span>
+  <div class="who">
+    <strong>ИП Абрамов А. Г.</strong>
+    <span class="muted meta">ИНН 562701366305</span>
+  </div>
+  <div class="bars" title="3% от суммы GMV"><span class="bar" style="--w:3.0%"></span></div>
+  <div class="nums">
+    <b>3%</b>
+    <span class="muted">218 тыс. ₽ · 1 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">7</span>
+  <div class="who">
+    <strong>ИП Арзамасова Л. С.</strong> <span class="badge-new">новый</span>
+    <span class="muted meta">ИНН 165028648514</span>
+  </div>
+  <div class="bars" title="3% от суммы GMV"><span class="bar" style="--w:3.0%"></span></div>
+  <div class="nums">
+    <b>3%</b>
+    <span class="muted">213 тыс. ₽ · 1 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">8</span>
+  <div class="who">
+    <strong>ИП Мурадян Р. В.</strong> <span class="badge-new">новый</span>
+    <span class="muted meta">ИНН 610107280392</span>
+  </div>
+  <div class="bars" title="2% от суммы GMV"><span class="bar" style="--w:2.0%"></span></div>
+  <div class="nums">
+    <b>2%</b>
+    <span class="muted">142 тыс. ₽ · 2 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">9</span>
+  <div class="who">
+    <strong>ООО КОФЕ ПРО</strong> <span class="badge-new">новый</span>
+    <span class="muted meta">ИНН 6168126798</span>
+  </div>
+  <div class="bars" title="1,9% от суммы GMV"><span class="bar" style="--w:1.9%"></span></div>
+  <div class="nums">
+    <b>1,9%</b>
+    <span class="muted">138 тыс. ₽ · 2 зак.</span>
+  </div>
+</li>
+<li>
+  <span class="rank">10</span>
+  <div class="who">
+    <strong>ИП Мусакадиев Г. М.</strong> <span class="badge-new">новый</span>
+    <span class="muted meta">ИНН 050203365697</span>
+  </div>
+  <div class="bars" title="1,8% от суммы GMV"><span class="bar" style="--w:1.8%"></span></div>
+  <div class="nums">
+    <b>1,8%</b>
+    <span class="muted">130 тыс. ₽ · 1 зак.</span>
+  </div>
+</li></ol>
+      </div>
+    </div>
+
+    <h2 id="users">5. Пользователи приложения</h2>
+    <p class="section-lead">Регистрации mini-app по <code>profiles.createdAt</code> в Strapi.</p>
+    <div class="chart-card">
+      <p class="chart-title">База пользователей накопительно</p>
+      <p class="chart-sub">Конец сентября: 430 · прирост за период 230</p>
+      <div class="chart-box"><canvas id="chartUsers"></canvas></div>
+    </div>
+
+    <h2 id="marketing">6. Маркетинг: лиды, CPL, бюджет</h2>
+    <p class="section-lead">Конверсии и CPL — из отчётов Forsite (Яндекс Директ, без НДС и АК). Сентябрь: 15 конверсий (14 заявок с лендинга + 1 заказ mini-app), расход 27 429 ₽, CPL 1 829 ₽. Лиды Tilda на графике — все формы сайта для справки.</p>
+    <div class="charts-row">
+      <div class="chart-card">
+        <p class="chart-title">Лиды: реклама vs всего</p>
+        <p class="chart-sub">Сентябрь: Директ 15 конв. / Tilda 24 · CPL 1 829 ₽</p>
+        <div class="chart-box"><canvas id="chartLeads"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <p class="chart-title">CPL и расход</p>
+        <p class="chart-sub">CPL Forsite ₽/конверсия · расход тыс. ₽</p>
+        <div class="chart-box"><canvas id="chartCpl"></canvas></div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <p class="chart-title">Органика: визиты из поиска</p>
+      <p class="chart-sub">Пик август 215 → сентябрь 161 (10,1% всех визитов)</p>
+      <div class="chart-box"><canvas id="chartOrganic"></canvas></div>
+    </div>
+
+    <h2 id="funnel">7. Главная воронка продаж (Метрика)</h2>
+    <p class="section-lead">
+      Как в отчёте Метрики «Главная воронка продаж»: уникальные пользователи по цепке шагов mini-app.
+      <strong>CR</strong> = «Успешный заказ» ÷ «Открытие приложения».
+      Сентябрь — цифры из UI (1–30 сен). Апр–авг — API <code>goal_users</code> по тем же целям (ближайший авто-аналог; в UI выход иногда на 1–2 ниже из‑за последовательности шагов).
+      Это не достижения целей (reaches) и не число заказов Strapi.
+    </p>
+    <div class="callout info">
+      <div class="title">Сентябрь · шаги как в Метрике</div>
+      <ul class="clean">
+        <li>Открытие приложения — <strong>108</strong></li>
+        <li>Клик по товару — <strong>56</strong> (51,85%)</li>
+        <li>Добавление в корзину — <strong>21</strong> (19,44%)</li>
+        <li>Подтверждение добавления — <strong>20</strong> (18,52%)</li>
+        <li>Начало оформления — <strong>13</strong> (12,04%)</li>
+        <li>Успешный заказ — <strong>11</strong> · CR <strong>10,19%</strong></li>
+      </ul>
+    </div>
+    <div class="charts-row">
+      <div class="chart-card">
+        <p class="chart-title">Вход → выход воронки</p>
+        <p class="chart-sub">Сентябрь: 108 → 11 · CR 10,19% (лучший месяц)</p>
+        <div class="chart-box"><canvas id="chartFunnel"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <p class="chart-title">Тренд CR воронки</p>
+        <p class="chart-sub">Апр 7,94% → Сен 10,19% · просадка в авг 4,71%</p>
+        <div class="chart-box"><canvas id="chartFunnelCr"></canvas></div>
+      </div>
+    </div>
+
+    <h2 id="ai-visibility">8. Видимость в нейросетях</h2>
+    <p class="section-lead">
+      Пиксель&nbsp;Тулс AI&nbsp;SEO (GEO), проект BEANABOX&nbsp;#13494 · 31&nbsp;промпт.
+      Съём <strong>02.10.2026</strong>. Метрики — упоминания бренда в&nbsp;ответах ИИ, не&nbsp;органика Метрики.
+    </p>
+    <div class="geo-board" aria-label="Инфографика видимости в нейросетях">
+      <div class="geo-board-head">
+        <p class="eyebrow">BEANABOX · GEO</p>
+        <p class="date">Съём 02.10.2026</p>
+      </div>
+      <div class="geo-kpis">
+        <div class="geo-kpi accent">
+          <p class="k">Общая видимость</p>
+          <p class="v"><span class="lime">4,03%</span></p>
+          <p class="s">10 упоминаний в ответах ИИ</p>
+        </div>
+        <div class="geo-kpi">
+          <p class="k">Share of Voice</p>
+          <p class="v">1,04%</p>
+          <p class="s">доля среди всех брендов в&nbsp;выдаче</p>
+        </div>
+      </div>
+      <div class="geo-charts-duo">
+        <div class="geo-panel">
+          <h3>vs СФТ Трейдинг · видимость бренда</h3>
+          <p class="geo-chart-caption muted">Два столбика рядом · зазор +2,42&nbsp;п.п.</p>
+          <div class="geo-chart-box"><canvas id="chartGeoSft" aria-label="BEANABOX 4,03% и СФТ Трейдинг 1,61%"></canvas></div>
+        </div>
+        <div class="geo-panel">
+          <h3>Тональность ответов</h3>
+          <p class="geo-chart-caption muted">Позитив — зелёный · негатив — красный</p>
+          <div class="geo-chart-box"><canvas id="chartGeoTone" aria-label="Тональность 30% позитив 20% нейтраль 50% негатив"></canvas></div>
+        </div>
+      </div>
+      <div class="geo-split">
+        <div class="geo-panel">
+          <h3>Share of Voice · топ конкурентов</h3>
+          <ul class="sov-bars">
+            <li>
+              <span class="name">OZON.ru</span>
+              <span class="track"><span class="fill" style="width:100%"></span></span>
+              <span class="pct">4,70%</span>
+            </li>
+            <li>
+              <span class="name">KLD Coffee</span>
+              <span class="track"><span class="fill" style="width:38%"></span></span>
+              <span class="pct">1,78%</span>
+            </li>
+            <li>
+              <span class="name">Camera Obscura</span>
+              <span class="track"><span class="fill" style="width:36%"></span></span>
+              <span class="pct">1,67%</span>
+            </li>
+            <li>
+              <span class="name">Sibaristica</span>
+              <span class="track"><span class="fill" style="width:27%"></span></span>
+              <span class="pct">1,25%</span>
+            </li>
+            <li>
+              <span class="name">The Welder Catherine</span>
+              <span class="track"><span class="fill" style="width:27%"></span></span>
+              <span class="pct">1,25%</span>
+            </li>
+            <li>
+              <span class="name is-us">BEANABOX</span>
+              <span class="track"><span class="fill us" style="width:22%"></span></span>
+              <span class="pct">1,04%</span>
+            </li>
+          </ul>
+          <p class="geo-note" style="border:0;padding:0;margin:.7rem 0 0">СФТ&nbsp;Трейдинг в&nbsp;топ&nbsp;SoV не&nbsp;входит; по&nbsp;видимости бренда уступает BEANABOX.</p>
+        </div>
+        <div class="geo-panel">
+          <h3>Группы промптов</h3>
+          <div class="prompt-grid">
+            <div class="prompt-row strong">
+              <span><b>Сильная:</b> репутационные</span>
+              <span class="pct">14,58%</span>
+            </div>
+            <div class="prompt-row">
+              <span>Сравнительные</span>
+              <span class="pct">2,5%</span>
+            </div>
+            <div class="prompt-row">
+              <span>Поисковые</span>
+              <span class="pct">2,5%</span>
+            </div>
+            <div class="prompt-row weak">
+              <span><b>Слабые:</b> ситуативные, рекомендательные</span>
+              <span class="pct">0%</span>
+            </div>
+          </div>
+          <p class="geo-note">Сильнее всего бренд в&nbsp;Perplexity (12,9%). Google AI&nbsp;Overview по&nbsp;BEANABOX&nbsp;— 0. СФТ держится в&nbsp;Google AI&nbsp;Overview и&nbsp;Gemini.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2 id="cross">9. Сквозная: телефон сайта × заказ</h2>
+    <div class="callout warn">
+      <div class="title">ROMI по телефону пока нельзя</div>
+      Из 98 телефонов Tilda и 47 в заказах —
+      клиентских совпадений <strong>1</strong>. В сентябре пересечений 0.
+      Рекламу считаем как CPL + лиды сайта + отдельно GMV приложения.
+    </div>
+
+    <h2 id="changes">10. Изменения сентября</h2>
+    <p class="section-lead">Продуктовые и контентные обновления сайта beanabox.ru за сентябрь 2026.</p>
+    <div class="callout info">
+      <div class="title">Сайт и воронка заявок</div>
+      <ul class="clean">
+        <li>Обновили <strong>Главную</strong> — блок hero.</li>
+        <li>Обновили <strong>навигационное меню</strong>.</li>
+        <li>Добавили информационные страницы <strong>Как купить</strong> и <strong>Доставка и оплата</strong>.</li>
+        <li>Добавили страницу и форму для поставщиков: <a href="https://beanabox.ru/suppliers" target="_blank" rel="noopener">beanabox.ru/suppliers</a>.</li>
+      </ul>
+    </div>
+
+    <h2 id="итог">Итог по продукту</h2>
+    <div class="takeaways">
+      <div class="title">Что важно за сентябрь</div>
+
+      <div class="take-item">
+        <div class="label">Кто покупает</div>
+        <p>
+          За апр–сен <span class="hl">15&nbsp;пользователей</span> оформили заказы на
+          <span class="hl">34&nbsp;контрагентов</span>
+          <span class="muted-inline">(63&nbsp;заказа, 14,16&nbsp;млн&nbsp;₽)</span>.
+          В&nbsp;сентябре — <span class="hl">9&nbsp;/&nbsp;20</span>
+          <span class="muted-inline">(27&nbsp;заказов, 7,22&nbsp;млн&nbsp;₽)</span>.
+          Новые контрагенты месяца: <span class="hl">12</span> на&nbsp;3,87&nbsp;млн&nbsp;₽ —
+          это уже <span class="hl">53,6%</span> сентябрьского GMV.
+        </p>
+      </div>
+
+      <div class="take-item">
+        <div class="label">GMV приложения</div>
+        <p>
+          Сентябрь — лучший месяц периода: <span class="hl">7,22&nbsp;млн&nbsp;₽</span>
+          при 27&nbsp;позитивных заказах и&nbsp;среднем чеке около
+          <span class="hl">267&nbsp;тыс.&nbsp;₽</span>.
+        </p>
+      </div>
+
+      <div class="take-item">
+        <div class="label">Что купили</div>
+        <p>
+          За полгода <span class="hl">14&nbsp;520&nbsp;кг</span> / 50&nbsp;SKU;
+          сентябрь дал <span class="hl">7&nbsp;430&nbsp;кг</span> / 20&nbsp;SKU —
+          уже <span class="hl">51%</span> объёма периода.
+          Лидеры полки: Colombia Supremo и&nbsp;Brazil Santos.
+        </p>
+      </div>
+
+      <div class="take-item">
+        <div class="label">Воронка и CPL</div>
+        <p>
+          Главная воронка Метрики: CR <span class="hl">10,19%</span>
+          <span class="muted-inline">(108&nbsp;→&nbsp;11)</span> против 4,71% в&nbsp;августе.
+          CPL Forsite <span class="hl">1&nbsp;829&nbsp;₽</span> при расходе 27&nbsp;429&nbsp;₽
+          и&nbsp;15&nbsp;конверсиях Директа
+          <span class="muted-inline">(14&nbsp;лендинг +&nbsp;1&nbsp;mini-app)</span> —
+          дешевле августовских 2&nbsp;822&nbsp;₽.
+        </p>
+      </div>
+
+      <div class="take-item">
+        <div class="label">Органика и нейросети</div>
+        <p>
+          Органика после августовского пика чуть просела — держать публикации и&nbsp;SEO.
+          В&nbsp;нейросетях видимость бренда <span class="hl">4,03%</span>, SoV&nbsp;1,04%;
+          к&nbsp;СФТ&nbsp;Трейдинг зазор <span class="hl">+2,42&nbsp;п.п.</span>
+          Сильны репутационные промпты <span class="hl">(14,6%)</span>,
+          ситуативные и&nbsp;рекомендательные пока на&nbsp;нуле; тональность тяжелее
+          в&nbsp;сторону негатива <span class="muted-inline">(30%+&nbsp;/&nbsp;50%−)</span>.
+        </p>
+      </div>
+
+      <div class="take-item">
+        <div class="label">Сайт и учёт</div>
+        <p>
+          Обновлены hero и&nbsp;меню; добавлены «Как купить», «Доставка и&nbsp;оплата»
+          и&nbsp;страница/форма suppliers.
+          Цель lot-form размечена в&nbsp;Метрике; исторические заявки — по&nbsp;CSV Тильды.
+        </p>
+      </div>
+    </div>
+
+    <aside class="metric-key" id="glossary">
+      <div class="metric-key-label">Ключ метрик</div>
+      <p><b>GMV</b> <i>(Gross Merchandise Value)</i> — сумма итогов счёта позитивных заказов mini-app (<code>order.price</code>: оплачен / доставка / получен / самовывоз), не прибыль и не сумма строк состава.</p>
+      <p><b>CPL</b> <i>(Cost Per Lead / стоимость конверсии)</i> — из отчёта Forsite: расход Директа (без НДС и АК) ÷ конверсии кампании. Сентябрь: 27 429 ÷ 15 = 1 828,6 ₽ (в таблице округлено до 1 829 ₽). Не делим на все формы Tilda.</p>
+      <p><b>CR</b> <i>(Conversion Rate)</i> — конверсия «Главной воронки продаж» Метрики: уники «успешный заказ» ÷ уники «открытие приложения». Не путать с достижениями целей (reaches) и с числом заказов Strapi.</p>
+      <p><b>ROMI</b> <i>(Return on Marketing Investment)</i> — возврат маркетинговых вложений: (доход с рекламы − расход на рекламу) ÷ расход. Здесь пока не считаем: телефоны Tilda почти не сходятся с заказами Strapi.</p>
+      <p><b>Видимость в нейросетях / SoV</b> — доля ответов ИИ (Пиксель Тулс AI SEO), где упоминается бренд или конкурент. Не путать с органикой Метрики и позициями в классическом поиске.</p>
+    </aside>
+
+    <div class="footer">
+      <p class="report-meta"><strong>Подготовлено:</strong> 2 октября 2026 · Лидия Мялкина, Product Manager / Project Lead, BEANABOX</p>
+      BEANABOX · продуктовый отчёт · апрель — сентябрь 2026<br>
+      Источники: Strapi orders/profiles/products · Tilda leads · Forsite Direct · Яндекс Метрика API 103719216 · Пиксель Тулс AI SEO #13494<br>
+      Методология: Strapi: оплачен / доставка / получен / самовывоз; главная воронка Метрики (уники); GEO — съём 02.10.2026; октябрь в GMV/заказах не входит.
+    </div>
+  </div>
+
+  <script>
+    const labels = ["Апр", "Май", "Июн", "Июл", "Авг", "Сен"];
+    const teal = '#5b9fd0', amber = '#3f86b8', soft = '#d7e8f5', lime = '#DDFD2C';
+    Chart.defaults.font.family = 'Gilroy, Segoe UI, system-ui, sans-serif';
+    Chart.defaults.color = '#6b7280';
+    Chart.register(ChartDataLabels);
+    Chart.defaults.plugins.datalabels = { display: false };
+
+    const barLabels = {
+      display: true,
+      anchor: 'end',
+      align: 'top',
+      offset: 2,
+      clamp: true,
+      clip: false,
+      color: '#1a1c1f',
+      font: { size: 11, weight: '600', family: 'Gilroy, Segoe UI, system-ui, sans-serif' },
+      formatter: (v) => {
+        if (v == null) return '';
+        if (Number.isInteger(v)) return String(v).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        return String(v).replace('.', ',');
+      }
+    };
+    const barPad = { top: 22, right: 8, bottom: 0, left: 4 };
+
+    new Chart(document.getElementById('chartLots'), {
+      type: 'line',
+      data: { labels, datasets: [{ label: 'Лоты ∑', data: [70, 72, 74, 90, 90, 96], borderColor: teal, backgroundColor: soft, fill: true, tension: .3 }] },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false } } }
+    });
+    new Chart(document.getElementById('chartGmv'), {
+      type: 'bar',
+      data: { labels, datasets: [{ label: 'GMV, млн ₽', data: [1.91, 2.46, 2.93, 3.03, 1.55, 7.22], backgroundColor: teal }] },
+      options: {
+        responsive: true, maintainAspectRatio: false, layout: { padding: barPad },
+        plugins: { legend: { display: false }, datalabels: barLabels }
+      }
+    });
+    new Chart(document.getElementById('chartOrders'), {
+      type: 'bar',
+      data: { labels, datasets: [{ label: 'Заказы', data: [9, 16, 16, 14, 9, 27], backgroundColor: amber }] },
+      options: {
+        responsive: true, maintainAspectRatio: false, layout: { padding: barPad },
+        plugins: { legend: { display: false }, datalabels: barLabels }
+      }
+    });
+    new Chart(document.getElementById('chartUsers'), {
+      type: 'line',
+      data: { labels, datasets: [{ label: 'Users ∑', data: [258, 298, 340, 372, 391, 429], borderColor: teal, tension: .3, fill: false }] },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+    });
+    new Chart(document.getElementById('chartLeads'), {
+      type: 'bar',
+      data: { labels, datasets: [
+        { label: 'Конверсии Директ', data: [26, 31, 15, 11, 10, 15], backgroundColor: amber },
+        { label: 'Лиды Tilda', data: [24, 32, 17, 12, 11, 24], backgroundColor: lime }
+      ] },
+      options: {
+        responsive: true, maintainAspectRatio: false, layout: { padding: barPad },
+        plugins: {
+          datalabels: {
+            ...barLabels,
+            // два ряда рядом — подпись только у «Всего лиды», чтобы не наезжало
+            display: (ctx) => ctx.datasetIndex === 1
+          }
+        }
+      }
+    });
+    new Chart(document.getElementById('chartCpl'), {
+      type: 'line',
+      data: { labels, datasets: [
+        { label: 'CPL, ₽', data: [1146, 727, 2297, 2543, 2822, 1829], borderColor: amber, yAxisID: 'y' },
+        { label: 'Расход, тыс. ₽', data: [29.8, 22.5, 34.5, 28.0, 28.2, 27.4], borderColor: lime, yAxisID: 'y1' }
+      ] },
+      options: { responsive: true, maintainAspectRatio: false, scales: {
+        y: { position: 'left', title: { display: true, text: 'CPL ₽' } },
+        y1: { position: 'right', grid: { drawOnChartArea: false }, title: { display: true, text: 'тыс. ₽' } }
+      } }
+    });
+    new Chart(document.getElementById('chartOrganic'), {
+      type: 'line',
+      data: { labels, datasets: [{ label: 'Органика', data: [26, 29, 88, 150, 217, 161], borderColor: teal, fill: true, backgroundColor: soft, tension: .3 }] },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+    });
+    new Chart(document.getElementById('chartFunnel'), {
+      type: 'bar',
+      data: { labels, datasets: [
+        { label: 'Вход (open)', data: [126, 111, 120, 103, 85, 108], backgroundColor: soft },
+        { label: 'Выход (purchase)', data: [10, 8, 9, 6, 4, 11], backgroundColor: lime }
+      ] },
+      options: {
+        responsive: true, maintainAspectRatio: false, layout: { padding: { top: 26, right: 8, bottom: 0, left: 4 } },
+        plugins: {
+          datalabels: {
+            ...barLabels,
+            font: { size: 10, weight: '600', family: 'Gilroy, Segoe UI, system-ui, sans-serif' },
+            display: true
+          }
+        }
+      }
+    });
+    new Chart(document.getElementById('chartFunnelCr'), {
+      type: 'line',
+      data: { labels, datasets: [{
+        label: 'CR, %',
+        data: [7.94, 7.21, 7.5, 5.83, 4.71, 10.19],
+        borderColor: lime,
+        backgroundColor: 'rgba(221, 253, 44, 0.25)',
+        pointBackgroundColor: lime,
+        pointBorderColor: '#1a1c1f',
+        pointRadius: 5,
+        pointHoverRadius: 6,
+        fill: true,
+        tension: .3
+      }] },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        layout: { padding: { top: 22, right: 8, bottom: 0, left: 4 } },
+        plugins: {
+          legend: { display: false },
+          datalabels: {
+            display: true,
+            align: 'top',
+            anchor: 'end',
+            offset: 4,
+            color: '#1a1c1f',
+            font: { size: 11, weight: '600', family: 'Gilroy, Segoe UI, system-ui, sans-serif' },
+            formatter: (v) => String(v).replace('.', ',') + '%'
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: { display: true, text: 'CR %' },
+            ticks: { callback: (v) => String(v).replace('.', ',') + '%' }
+          }
+        }
+      }
+    });
+    const geoLabelFont = { size: 11, weight: '700', family: 'Gilroy, Segoe UI, system-ui, sans-serif' };
+    new Chart(document.getElementById('chartGeoSft'), {
+      type: 'bar',
+      data: {
+        labels: ['BEANABOX', 'СФТ Трейдинг'],
+        datasets: [{
+          label: 'Видимость бренда',
+          data: [4.03, 1.61],
+          backgroundColor: [lime, teal],
+          borderWidth: 0,
+          barPercentage: 0.65,
+          categoryPercentage: 0.7
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        layout: { padding: { top: 22 } },
+        plugins: {
+          legend: { display: false },
+          datalabels: {
+            display: true,
+            color: '#1a1c1f',
+            font: geoLabelFont,
+            anchor: 'end',
+            align: 'top',
+            offset: 2,
+            formatter: (v) => String(v).replace('.', ',') + '%'
+          }
+        },
+        scales: {
+          x: { grid: { display: false } },
+          y: {
+            beginAtZero: true,
+            max: 5.5,
+            ticks: { callback: (v) => String(v).replace('.', ',') + '%' }
+          }
+        }
+      }
+    });
+    new Chart(document.getElementById('chartGeoTone'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Позитив', 'Нейтраль', 'Негатив'],
+        datasets: [{
+          data: [30, 20, 50],
+          backgroundColor: ['#2f8f4e', '#9aa3ad', '#b91c1c'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '55%',
+        plugins: {
+          legend: { position: 'bottom', labels: { font: { weight: '700' } } },
+          datalabels: {
+            display: true,
+            font: geoLabelFont,
+            color: (ctx) => (ctx.dataIndex === 1 ? '#1a1c1f' : '#fff'),
+            formatter: (v) => v + '%'
+          }
+        }
+      }
+    });
+
+    (function stickyTocActive() {
+      const bar = document.querySelector('.toc-bar');
+      const links = Array.from(document.querySelectorAll('#report-toc a'));
+      if (!links.length || !bar) return;
+      const sections = links
+        .map((a) => {
+          const id = decodeURIComponent(a.getAttribute('href') || '').replace(/^#/, '');
+          const el = document.getElementById(id);
+          return el ? { id, el, a } : null;
+        })
+        .filter(Boolean);
+
+      const setActive = () => {
+        const stuck = bar.getBoundingClientRect().top <= 0.5;
+        bar.classList.toggle('is-stuck', stuck);
+
+        const offset = bar.offsetHeight + 12;
+        const y = window.scrollY + offset;
+        let current = sections[0];
+        for (const s of sections) {
+          if (s.el.offsetTop <= y) current = s;
+        }
+        links.forEach((a) => a.classList.toggle('is-active', a === current.a));
+      };
+
+      window.addEventListener('scroll', setActive, { passive: true });
+      window.addEventListener('resize', setActive);
+      setActive();
+    })();
+  </script>
+</body>
+</html>
